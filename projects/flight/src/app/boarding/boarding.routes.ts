@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DepatureComponent } from './feature-departure';
 import { BOARDING_NAVIGATION } from './boarding.navigation';
 import { provideNavigationConfig } from '../shared/logic-navigation';
+import { ScanTicketComponent } from './feature-departure/scan-ticket/scan-ticket.component';
 
 export const BOARDING_ROUTES: Routes = [
   {
@@ -18,6 +19,10 @@ export const BOARDING_ROUTES: Routes = [
       {
         path: 'departures',
         component: DepatureComponent
+      },
+      {
+        path: 'scan-ticket',
+        component: ScanTicketComponent
       }
     ]
   }

@@ -15,8 +15,8 @@ import { NavigationProviderDirective } from '../../../shared/ui-common/navigatio
   providers: [
     provideNavigationService([
       {
-        route: 'flight',
-        label: 'Flights',
+        route: 'flight/search',
+        label: 'Flight Search',
         icon: 'flight'
       }
     ])
@@ -31,11 +31,9 @@ import { NavigationProviderDirective } from '../../../shared/ui-common/navigatio
   `
 })
 export class FlightBookingComponent {
-  navState = [
-    {
-      route: '../departures',
-      label: 'Departures',
-      icon: 'departures'
-    }
-  ];
+  navState = [{
+    route: 'flight/departures',
+    label: 'Departures',
+    icon: 'departures'
+  }];
 }

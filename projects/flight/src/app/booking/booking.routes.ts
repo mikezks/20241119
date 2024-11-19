@@ -9,6 +9,7 @@ import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from "
 import { BOOKING_NAVIGATION } from "./booking.navigation";
 import { provideNavigationConfig } from "../shared/logic-navigation";
 import { DepatureComponent } from "../boarding/feature-departure";
+import { MyFlightsComponent } from "./feature-flight/my-flights/my-flights.component";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -49,10 +50,14 @@ export const BOOKING_ROUTES: Routes = [
             }
           },
           {
-            path: 'departure',
-            component: DepatureComponent,
-          },
+            path: 'departures',
+            component: DepatureComponent
+          }
         ]
+      },
+      {
+        path: 'my-flights',
+        component: MyFlightsComponent,
       }
     ]
   }

@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import { provideNavigationConfig } from "../shared/logic-navigation";
 import { CHECKIN_NAVIGATION } from "./checkin.navigation";
 import { PassengerEditComponent, PassengerSearchComponent } from "./feature-passenger";
+import { MilesComponent } from "./feature-miles";
 
 
 export const CHECKIN_ROUTES: Routes = [
@@ -33,6 +34,10 @@ export const CHECKIN_ROUTES: Routes = [
             component: PassengerEditComponent
           }
         ]
+      },
+      {
+        path: 'miles',
+        component: MilesComponent
       }
     ]
   }
