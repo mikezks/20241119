@@ -6,6 +6,9 @@ import { ticketFeature } from "./logic-flight/+state/reducer";
 import { FlightSearchComponent, FlightEditComponent, FlightBookingComponent } from "./feature-flight";
 import { resolveFlight } from "./logic-flight/data-access/flight.resolver";
 import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from "@angular/common/http";
+import { BOOKING_NAVIGATION } from "./booking.navigation";
+import { provideNavigationConfig } from "../shared/logic-navigation";
+import { DepatureComponent } from "../boarding/feature-departure";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -15,10 +18,7 @@ export const BOOKING_ROUTES: Routes = [
     providers: [
       provideState(ticketFeature),
       provideEffects([TicketEffects]),
-      /* provideHttpClient(
-        withInterceptors([myResponseTransfer]),
-        withRequestsMadeViaParent()
-      ), */
+      provideNavigationConfig(BOOKING_NAVIGATION)
     ],
     children: [
       {
@@ -47,7 +47,11 @@ export const BOOKING_ROUTES: Routes = [
             resolve: {
               flight: resolveFlight
             }
-          }
+          },
+          {
+            path: 'departure',
+            component: DepatureComponent,
+          },
         ]
       }
     ]
