@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, Injector, runInInjectionContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Flight, FlightFilter, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
+import { FlightService } from '../../api-boarding';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
 })
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
+  private injector = inject(Injector);
 
   protected filter = {
     from: 'London',
@@ -30,6 +32,11 @@ export class FlightSearchComponent {
   protected flights$ = this.ticketsFacade.flights$;
 
   protected search(filter: FlightFilter): void {
+    const flightService = runInInjectionContext(this.injector, () => {
+      return inject(FlightService);
+    });
+    flightService.find('London', '').subscribe(console.log);
+
     this.filter = filter;
 
     if (!this.filter.from || !this.filter.to) {
