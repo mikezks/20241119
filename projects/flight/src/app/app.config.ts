@@ -27,22 +27,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects(),
     provideRouterFeature(),
-    provideStoreDevtools(),
-    /* {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: (
-        flightService = inject(FlightService)
-      ) => () => of(true).pipe(
-        delay(5_000),
-        tap(() => console.log(flightService.flights))
-      )
-    }, */
-    provideAppInitializer((
-      flightService = inject(FlightService)
-    ) => of(true).pipe(
-      delay(5_000),
-      tap(() => console.log(flightService.flights))
-    ))
+    provideStoreDevtools()
   ]
 };
