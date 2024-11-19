@@ -11,6 +11,7 @@ import { delay, of, tap } from 'rxjs';
 import { FlightService } from './booking/api-boarding';
 import { provideNavigationService } from './shared/logic-navigation';
 import { APP_NAVIGATION } from './app.navigation';
+import { provideConfigState } from './shared/util-config/config-state/config.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -31,5 +32,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     provideRouterFeature(),
     provideStoreDevtools(),
+    provideConfigState('./config.state.json')
   ]
 };

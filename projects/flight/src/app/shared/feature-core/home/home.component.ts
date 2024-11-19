@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { injectUsername } from '../../util-config/config-state/config.provider';
 
 
 @Component({
@@ -20,6 +21,8 @@ import { Component } from '@angular/core';
           <li>Performance</li>
           <li>... and much more!</li>
         </ul>
+
+        <p>{{ username }}</p>
       </div>
     </div>
   `,
@@ -30,4 +33,5 @@ import { Component } from '@angular/core';
   `]
 })
 export class HomeComponent {
+  username = injectUsername();
 }
