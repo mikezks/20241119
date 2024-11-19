@@ -5,6 +5,7 @@ import { TicketEffects } from "./logic-flight/+state/effects";
 import { ticketFeature } from "./logic-flight/+state/reducer";
 import { FlightSearchComponent, FlightEditComponent, FlightBookingComponent } from "./feature-flight";
 import { resolveFlight } from "./logic-flight/data-access/flight.resolver";
+import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from "@angular/common/http";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -14,6 +15,10 @@ export const BOOKING_ROUTES: Routes = [
     providers: [
       provideState(ticketFeature),
       provideEffects([TicketEffects]),
+      /* provideHttpClient(
+        withInterceptors([myResponseTransfer]),
+        withRequestsMadeViaParent()
+      ), */
     ],
     children: [
       {
