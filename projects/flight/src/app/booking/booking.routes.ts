@@ -4,7 +4,7 @@ import { provideState } from "@ngrx/store";
 import { TicketEffects } from "./logic-flight/+state/effects";
 import { ticketFeature } from "./logic-flight/+state/reducer";
 import { FlightSearchComponent, FlightEditComponent, FlightBookingComponent } from "./feature-flight";
-import { FlightResolver } from "./logic-flight/data-access/flight.resolver";
+import { resolveFlight } from "./logic-flight/data-access/flight.resolver";
 
 
 export const BOOKING_ROUTES: Routes = [
@@ -36,8 +36,11 @@ export const BOOKING_ROUTES: Routes = [
           {
             path: 'edit/:id',
             component: FlightEditComponent,
+            data: {
+              name: 'Michael'
+            },
             resolve: {
-              flight: FlightResolver
+              flight: resolveFlight
             }
           }
         ]
