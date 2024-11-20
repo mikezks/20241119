@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, Injector, runInInjectionContext, signal, untracked } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
+import { SIGNAL } from '@angular/core/primitives/signals';
 import { FormsModule } from '@angular/forms';
-import { Flight, FlightFilter, injectTicketsFacade } from '../../logic-flight';
+import { Flight, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
-import { FlightService } from '../../api-boarding';
 
 
 @Component({
@@ -34,8 +34,14 @@ export class FlightSearchComponent {
   protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
-    effect(() => console.log(this.route()));
+    let activeConsumer = effect(() => {
+      console.log(
+        this.route() // Getter call on Signal container returns value
+      );
+    });
     effect(() => this.search());
+
+    console.log(this.route[SIGNAL]);
   }
 
   protected search(): void {
