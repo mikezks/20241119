@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, Injector, runInInjectionContext, signal } from '@angular/core';
+import { Component, computed, effect, inject, Injector, runInInjectionContext, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Flight, FlightFilter, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
@@ -19,6 +19,7 @@ import { FlightService } from '../../api-boarding';
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
 
+  protected name = signal('Mary');
   protected filter = signal({
     from: 'London',
     to: 'New York',
@@ -34,19 +35,16 @@ export class FlightSearchComponent {
   protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
-    effect(() => console.log(this.route()));
+    effect(() => {
+      const route = this.route();
+      untracked(() => this.logRoute(route));
+    });
 
-    console.log(this.filter().from);
-    this.filter.update(value => ({ ...value, from: 'Warschau' }));
-    console.log(this.filter().from);
-    this.filter.update(value => ({ ...value, from: 'Barcelona' }));
-    console.log(this.filter().from);
-    this.filter.update(value => ({ ...value, from: 'Johannesburg' }));
-    console.log(this.filter().from);
-    this.filter.update(value => ({ ...value, from: 'Rom' }));
-    console.log(this.filter().from);
-    this.filter.update(value => ({ ...value, from: 'Athen' }));
-    console.log(this.filter().from);
+    setTimeout(() => this.name.set('James'), 5_000);
+  }
+
+  private logRoute(route: string): void {
+    console.log(route, untracked(() => this.name()));
   }
 
   protected search(filter: FlightFilter): void {
