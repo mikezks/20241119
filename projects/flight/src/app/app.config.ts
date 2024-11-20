@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideNavigationService(APP_NAVIGATION),
     provideHttpClient(
       withInterceptors([
-        authInterceptor
+        // authInterceptor
       ]),
       // withInterceptorsFromDi(),
       // withFetch()
