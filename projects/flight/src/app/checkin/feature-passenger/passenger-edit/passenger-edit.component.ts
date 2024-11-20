@@ -1,5 +1,5 @@
 import { PassengerService } from './../../logic-passenger/data-access/passenger.service';
-import { NgIf } from '@angular/common';
+
 import { Component, effect, inject, input, numberAttribute, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -12,10 +12,9 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-passenger-edit',
   imports: [
-    NgIf,
     RouterLink,
     ReactiveFormsModule
-  ],
+],
   templateUrl: './passenger-edit.component.html'
 })
 export class PassengerEditComponent {
