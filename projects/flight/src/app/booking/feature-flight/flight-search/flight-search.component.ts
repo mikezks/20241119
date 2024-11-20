@@ -35,6 +35,18 @@ export class FlightSearchComponent {
 
   constructor() {
     effect(() => console.log(this.route()));
+
+    console.log(this.filter().from);
+    this.filter.update(value => ({ ...value, from: 'Warschau' }));
+    console.log(this.filter().from);
+    this.filter.update(value => ({ ...value, from: 'Barcelona' }));
+    console.log(this.filter().from);
+    this.filter.update(value => ({ ...value, from: 'Johannesburg' }));
+    console.log(this.filter().from);
+    this.filter.update(value => ({ ...value, from: 'Rom' }));
+    console.log(this.filter().from);
+    this.filter.update(value => ({ ...value, from: 'Athen' }));
+    console.log(this.filter().from);
   }
 
   protected search(filter: FlightFilter): void {
