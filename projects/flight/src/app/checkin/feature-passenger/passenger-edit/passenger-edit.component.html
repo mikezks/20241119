@@ -50,6 +50,12 @@
             Save
           </button>
           <button
+            (click)="passengerResource.reload()"
+            class="btn btn-default"
+          >
+            Reload
+          </button>
+          <button
             [routerLink]="['..', id()+1]"
             class="btn btn-default"
             >

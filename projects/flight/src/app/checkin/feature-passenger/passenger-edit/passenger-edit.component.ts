@@ -21,11 +21,7 @@ export class PassengerEditComponent {
   private readonly passengerService = inject(PassengerService);
 
   protected readonly id = input.required({ transform: numberAttribute });
-  protected readonly passenger = toSignal(
-    toObservable(this.id).pipe(
-      switchMap(id => this.passengerService.findById(id))
-    ), { initialValue: initialPassenger }
-  );
+  protected readonly passengerResource = this.passengerService.findByIdAsResource(this.id);
 
   protected editForm = inject(NonNullableFormBuilder).group({
     id: [0],
@@ -39,7 +35,12 @@ export class PassengerEditComponent {
 
   constructor() {
     effect(() => console.log(this.id()));
-    effect(() => this.editForm.patchValue(this.passenger()));
+    effect(() => {
+      const passenger = this.passengerResource.value();
+      if (passenger) {
+        this.editForm.patchValue(passenger);
+      }
+    });
   }
 
   protected save(): void {
