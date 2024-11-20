@@ -22,13 +22,11 @@ export class PassengerEditComponent {
   private readonly passengerService = inject(PassengerService);
 
   protected readonly id = input.required({ transform: numberAttribute });
-  private readonly id$ = toObservable(this.id);
-  private passenger$ = this.id$.pipe(
-    switchMap(id => this.passengerService.findById(id))
+  protected readonly passenger = toSignal(
+    toObservable(this.id).pipe(
+      switchMap(id => this.passengerService.findById(id))
+    ), { initialValue: initialPassenger }
   );
-  protected readonly passenger = toSignal(this.passenger$, {
-    initialValue: initialPassenger
-  });
 
   protected editForm = inject(NonNullableFormBuilder).group({
     id: [0],
