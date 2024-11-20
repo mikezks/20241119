@@ -6,14 +6,15 @@
   </div>
 
   <div class="card-body">
+    @let myComplexCondition = flights.length;
 
     <app-flight-filter [(filter)]="filter" #flightFilter>
-      @if (flights.length) {
+      @if (myComplexCondition) {
         <div class="flight-filter-info">
           {{ flights.length }} flights found!
         </div>
       }
-      @if (flights.length) {
+      @if (myComplexCondition) {
         <button (click)="reset()"
           class="btn btn-default flight-filter-button"
         >Reset</button>
