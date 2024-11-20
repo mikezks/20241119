@@ -35,15 +35,10 @@ export class FlightSearchComponent {
   protected flights$ = this.ticketsFacade.flights$;
 
   constructor() {
-    /* const logEffectRef =  */effect(() => console.log(this.route()));
-
-    // setTimeout(() => logEffectRef.destroy(), 5_000);
+    effect(() => console.log(this.route()));
   }
 
   protected search(filter: FlightFilter): void {
-    /* effect(() => console.log(this.route()), {
-      injector: this.injector
-    }); */
     this.filter.set(filter);
 
     if (!this.filter().from || !this.filter().to) {
