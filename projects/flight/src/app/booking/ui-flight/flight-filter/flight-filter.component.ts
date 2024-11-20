@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, effect, input, Output, inject, output } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FlightFilter } from '../../logic-flight';
 
@@ -13,11 +13,8 @@ import { FlightFilter } from '../../logic-flight';
   templateUrl: './flight-filter.component.html'
 })
 export class FlightFilterComponent {
-  @Input() set filter(filter: FlightFilter) {
-    this.inputFilterForm.setValue(filter);
-  }
-
-  @Output() searchTrigger = new EventEmitter<FlightFilter>();
+  filter = input.required<FlightFilter>();
+  filterChange = output<FlightFilter>();
 
   protected inputFilterForm = inject(FormBuilder).nonNullable.group({
     from: ['', [Validators.required]],
@@ -29,7 +26,11 @@ export class FlightFilterComponent {
     nonNullable: true,
   });
 
+  constructor() {
+    effect(() => this.inputFilterForm.setValue(this.filter()));
+  }
+
   protected triggerSearch(): void {
-    this.searchTrigger.emit(this.inputFilterForm.getRawValue());
+    this.filterChange.emit(this.inputFilterForm.getRawValue());
   }
 }
