@@ -1,5 +1,5 @@
 import { DatePipe, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, input, linkedSignal, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, input, linkedSignal, model, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { injectCdBlink } from '../../../shared/util-cd-visualizer';
 import { Flight } from '../../logic-flight';
@@ -24,6 +24,7 @@ import { Flight } from '../../logic-flight';
       <div class="card-body">
         <p>Flight-No.: {{ editableFlight().id }}</p>
         <p>Date: {{ editableFlight().date | date : "dd.MM.yyyy HH:mm" }}</p>
+        <p>{{ flightInfo() }}</p>
         <p>
           <button
             (click)="toggleSelection()"
@@ -61,6 +62,23 @@ export class FlightCardComponent implements OnInit, OnDestroy {
   );
   readonly selected = model(false);
   readonly delayTrigger = output<Flight>();
+  gate = signal('B52');
+  flightInfo = linkedSignal<{ selected: boolean, gate: string }, string>({
+    source: () => ({
+      selected: this.selected(),
+      gate: this.gate()
+    }),
+    computation: ({ selected, gate }, previous) => {
+      if (selected) {
+        return `Your flight leaves ${ this.item().from } at gate ${ gate }.`;
+      }
+      return 'This flight is not selected.'
+    }
+  });
+
+  constructor() {
+    setTimeout(() => this.flightInfo.set('Urgent update: your flight is cancelled!'), 3_000);
+  }
 
   ngOnInit(): void {
     console.log('Flight Card INIT', this.item().id);
