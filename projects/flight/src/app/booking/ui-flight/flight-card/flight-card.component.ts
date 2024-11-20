@@ -1,5 +1,5 @@
 import { DatePipe, NgStyle } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, input, model, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, OnInit, Output, input, linkedSignal, model, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { injectCdBlink } from '../../../shared/util-cd-visualizer';
 import { Flight } from '../../logic-flight';
@@ -18,12 +18,12 @@ import { Flight } from '../../logic-flight';
       [ngStyle]="{ 'background-color': selected() ? 'rgb(204, 197, 185)' : 'white' }"
     >
       <div class="card-header">
-        <h2 class="card-title">{{ item().from }} - {{ item().to }}</h2>
+        <h2 class="card-title">{{ editableFlight().from }} - {{ editableFlight().to }}</h2>
       </div>
 
       <div class="card-body">
-        <p>Flight-No.: {{ item().id }}</p>
-        <p>Date: {{ item().date | date : "dd.MM.yyyy HH:mm" }}</p>
+        <p>Flight-No.: {{ editableFlight().id }}</p>
+        <p>Date: {{ editableFlight().date | date : "dd.MM.yyyy HH:mm" }}</p>
         <p>
           <button
             (click)="toggleSelection()"
@@ -35,6 +35,11 @@ import { Flight } from '../../logic-flight';
             class="btn btn-success btn-sm"
             style="min-width: 85px; margin-right: 5px"
           >Edit</a>
+          <button
+            (click)="updateFrom('Miami')"
+            class="btn btn-danger btn-sm"
+            style="min-width: 85px; margin-right: 5px"
+          >Update</button>
           <button
             (click)="delay()"
             class="btn btn-danger btn-sm"
@@ -51,6 +56,9 @@ export class FlightCardComponent implements OnInit, OnDestroy {
   blink = injectCdBlink();
 
   readonly item = input.required<Flight>();
+  readonly editableFlight = linkedSignal(
+    () => this.item()
+  );
   readonly selected = model(false);
   readonly delayTrigger = output<Flight>();
 
@@ -60,6 +68,13 @@ export class FlightCardComponent implements OnInit, OnDestroy {
 
   toggleSelection(): void {
     this.selected.update(value => !value);
+  }
+
+  updateFrom(from: string): void {
+    this.editableFlight.update(value => ({
+      ...value,
+      from
+    }));
   }
 
   delay(): void {

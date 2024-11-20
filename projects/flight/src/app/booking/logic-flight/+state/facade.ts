@@ -13,6 +13,8 @@ export function injectTicketsFacade() {
     flights: store.selectSignal(ticketFeature.selectFlights),
     search: (filter: FlightFilter) =>
       store.dispatch(ticketActions.flightsLoad(filter)),
+    setFlights: (flights: Flight[]) =>
+      store.dispatch(ticketActions.flightsLoaded({ flights })),
     update: (flight: Flight) =>
       store.dispatch(ticketActions.flightUpdate({ flight })),
     reset: () =>

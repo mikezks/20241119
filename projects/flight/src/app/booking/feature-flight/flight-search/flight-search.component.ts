@@ -36,6 +36,16 @@ export class FlightSearchComponent {
   constructor() {
     effect(() => console.log(this.route()));
     effect(() => this.search());
+
+    setTimeout(
+      () => this.ticketsFacade.setFlights([{
+        id: 999,
+        from: 'Rom',
+        to: 'Athen',
+        date: new Date().toISOString(),
+        delayed: false
+      }])
+    , 10_000);
   }
 
   protected search(): void {

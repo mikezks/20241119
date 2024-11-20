@@ -34,9 +34,9 @@ export const appConfig: ApplicationConfig = {
     provideRouterFeature(),
     provideStoreDevtools(),
     provideConfigState('./config.state.json'),
-    provideClientHydration(
-      withEventReplay(),
-      withIncrementalHydration()
-    )
+    // provideClientHydration(
+    //   withEventReplay(),
+    //   withIncrementalHydration()
+    // )
   ]
 };
