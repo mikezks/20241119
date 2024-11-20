@@ -12,6 +12,7 @@ import { FlightService } from './booking/api-boarding';
 import { provideNavigationService } from './shared/logic-navigation';
 import { APP_NAVIGATION } from './app.navigation';
 import { provideConfigState } from './shared/util-config/config-state/config.provider';
+import { provideClientHydration, withEventReplay, withIncrementalHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,12 +27,16 @@ export const appConfig: ApplicationConfig = {
         // authInterceptor
       ]),
       // withInterceptorsFromDi(),
-      // withFetch()
+      withFetch()
     ),
     provideStore(),
     provideEffects(),
     provideRouterFeature(),
     provideStoreDevtools(),
-    provideConfigState('./config.state.json')
+    provideConfigState('./config.state.json'),
+    provideClientHydration(
+      withEventReplay(),
+      withIncrementalHydration()
+    )
   ]
 };

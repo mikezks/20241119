@@ -63,6 +63,7 @@ export class FlightCardComponent implements OnInit, OnDestroy {
   }
 
   delay(): void {
+    console.log('Delay executed.')
     this.delayTrigger.emit(this.item());
   }
 
