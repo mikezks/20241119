@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, signal } from '@angular/core';
-import { SIGNAL } from '@angular/core/primitives/signals';
 import { FormsModule } from '@angular/forms';
 import { Flight, injectTicketsFacade } from '../../logic-flight';
 import { FlightCardComponent, FlightFilterComponent } from '../../ui-flight';
@@ -34,14 +33,8 @@ export class FlightSearchComponent {
   protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
-    let activeConsumer = effect(() => {
-      console.log(
-        this.route() // Getter call on Signal container returns value
-      );
-    });
+    effect(() => console.log(this.route()));
     effect(() => this.search());
-
-    console.log(this.route[SIGNAL]);
   }
 
   protected search(): void {
