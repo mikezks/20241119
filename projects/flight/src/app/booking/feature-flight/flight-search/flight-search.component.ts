@@ -18,7 +18,6 @@ import { FlightService } from '../../api-boarding';
 })
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
-  private injector = inject(Injector);
 
   protected filter = signal({
     from: 'London',
@@ -32,7 +31,7 @@ export class FlightSearchComponent {
     3: true,
     5: true
   };
-  protected flights$ = this.ticketsFacade.flights$;
+  protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
     effect(() => console.log(this.route()));
