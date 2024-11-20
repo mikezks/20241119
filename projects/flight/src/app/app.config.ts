@@ -33,10 +33,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects(),
     provideRouterFeature(),
     provideStoreDevtools(),
-    provideConfigState('./config.state.json'),
-    // provideClientHydration(
-    //   withEventReplay(),
-    //   withIncrementalHydration()
-    // )
+    provideConfigState('./config.state.json')
   ]
 };
