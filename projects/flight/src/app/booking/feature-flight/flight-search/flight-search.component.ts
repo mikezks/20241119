@@ -19,7 +19,6 @@ import { FlightService } from '../../api-boarding';
 export class FlightSearchComponent {
   private ticketsFacade = injectTicketsFacade();
 
-  protected name = signal('Mary');
   protected filter = signal({
     from: 'London',
     to: 'New York',
@@ -35,16 +34,7 @@ export class FlightSearchComponent {
   protected flightResult = this.ticketsFacade.flights;
 
   constructor() {
-    effect(() => {
-      const route = this.route();
-      untracked(() => this.logRoute(route));
-    });
-
-    setTimeout(() => this.name.set('James'), 5_000);
-  }
-
-  private logRoute(route: string): void {
-    console.log(route, untracked(() => this.name()));
+    effect(() => console.log(this.route()));
   }
 
   protected search(filter: FlightFilter): void {
